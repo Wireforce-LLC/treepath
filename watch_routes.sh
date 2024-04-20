@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Function to generate Nginx configuration from routes.trp
+generate_config() {
+    # Remove existing configuration files
+    rm -f /etc/nginx/conf.d/*.conf
+
+    # Parse routes.trp and generate Nginx configuration
+    while IFS='=>' read -r domain target; do
+        # Trim leading/trailing whitespaces
+        domain=$(echo $domain | tr -d '[:space:]')
+        target=$(echo $target | tr -d '[:space:]')
+
+        # Generate Nginx configuration block for each domain
+        echo "server {
+            listen 80;
+            server_name $domain;
+
+            location / {
+                proxy_pass http://$target;
+                proxy_set_header Host \$host;
+                proxy_set_header X-Real-IP \$remote_addr;
+                proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto \$scheme;
+            }
+        }" > /etc/nginx/conf.d/$domain.conf
+
+    done < /etc/nginx/routes.trp
+
+    # Reload Nginx to apply changes
+    nginx -s reload
+}
+
+# Monitor routes.trp for changes and regenerate Nginx configuration
+while inotifywait -e modify /etc/nginx/routes.trp; do
+    generate_config
+done

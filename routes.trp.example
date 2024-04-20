@@ -1,0 +1,14 @@
+google.com => your-host:80
+
+#    ||             ||
+#  Domain      Internal host
+#
+#  Each line in the configuration file represents a routing rule.
+#  Format: domain => internal_host:port
+#   - 'domain' is the destination domain for incoming traffic.
+#   - '=>' separates the domain from the destination.
+#   - 'internal_host' is the internal server where traffic will be forwarded.
+#   - 'port' specifies the port on the internal server for forwarding.
+#
+#  For example: "google.com => your-host:80" redirects traffic from 'google.com'
+#  to 'your-host' on port 80.
