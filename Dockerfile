@@ -10,6 +10,9 @@ COPY routes.trp /etc/nginx/routes.trp
 # Copy the nginx configuration file with dynamic routing
 COPY nginx.conf /etc/nginx/nginx.conf
 
+COPY util.sh /etc/nginx/util.sh
+RUN chmod +x /etc/nginx/util.sh
+
 # Copy the script for monitoring and updating nginx configuration
 COPY watch_routes.sh /usr/local/bin/watch_routes.sh
 RUN chmod +x /usr/local/bin/watch_routes.sh
