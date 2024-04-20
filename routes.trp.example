@@ -1,4 +1,4 @@
-google.com => your-host:80
+google.com => http://your-host:80
 
 #    ||             ||
 #  Domain      Internal host
