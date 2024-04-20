@@ -12,8 +12,8 @@ generate_config() {
     echo "Parsing routes.trp and generating Nginx configuration..."
     while IFS=' => ' read -r domain target; do
         # Trim leading/trailing whitespaces
-        domain=$(echo $domain | tr -d '[:space:]')
-        target=$(echo $target | tr -d '[:space:]')
+        domain=$(echo "$domain" | awk '{$1=$1;print}')
+        target=$(echo "$target" | awk '{$1=$1;print}')
 
         # Generate Nginx configuration block for each domain
         echo "Generating configuration block for domain: $domain; target: $target"
@@ -30,7 +30,7 @@ generate_config() {
             }
         }" > /etc/nginx/conf.d/$domain.conf
 
-    done < /etc/nginx/routes.trp
+    done < <(awk -F' => ' '!/^ *#/ && NF>0 {print $1,$2}' /etc/nginx/routes.trp)
 
     # Reload Nginx to apply changes
     echo "Reloading Nginx to apply changes..."
