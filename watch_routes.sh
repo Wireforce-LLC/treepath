@@ -10,13 +10,13 @@ generate_config() {
 
     # Parse routes.trp and generate Nginx configuration
     echo "Parsing routes.trp and generating Nginx configuration..."
-    while IFS='=>' read -r domain target; do
+    while IFS=' => ' read -r domain target; do
         # Trim leading/trailing whitespaces
         domain=$(echo $domain | tr -d '[:space:]')
         target=$(echo $target | tr -d '[:space:]')
 
         # Generate Nginx configuration block for each domain
-        echo "Generating configuration block for domain: $domain"
+        echo "Generating configuration block for domain: $domain; target: $target"
         echo "server {
             listen 80;
             server_name $domain;
