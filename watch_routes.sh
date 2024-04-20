@@ -35,6 +35,9 @@ generate_config() {
     # Reload Nginx to apply changes
     echo "Reloading Nginx to apply changes..."
     nginx -s reload
+
+    echo "Print vhosts..."
+    nginx -T | grep "server_name "
 }
 
 echo "Dynamic routing script started..."
