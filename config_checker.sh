@@ -2,6 +2,8 @@ CONFIG_DIR="/etc/nginx/conf.d"
 TMP_FILE="/tmp/nginx_config_list"
 NGINX_MAIN_CONF="/etc/nginx/nginx.conf"
 
+rm "$TMP_FILE"
+
 > $TMP_FILE
 
 for file in $CONFIG_DIR/*.conf; do
@@ -31,4 +33,3 @@ else
     echo "Error: No valid configs found. Check error logs."
 fi
 
-rm "$TMP_FILE"
