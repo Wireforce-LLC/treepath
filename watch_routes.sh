@@ -36,6 +36,9 @@ generate_config() {
 
     done < <(awk -F' => ' '!/^ *#/ && NF>0 {print $1,$2}' /etc/nginx/routes.trp)
 
+    echo "Lint..."
+    cd /etc/nginx/ && sh config_checker.sh;
+
     # Reload Nginx to apply changes
     echo "Reloading Nginx to apply changes..."
     nginx -s reload
