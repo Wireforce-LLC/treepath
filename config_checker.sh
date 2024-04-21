@@ -8,6 +8,8 @@ NGINX_MAIN_CONF="/etc/nginx/nginx.conf"
 valid_configs=false
 
 for file in $CONFIG_DIR/*.conf; do
+    echo "Checking '$file'..."
+
     nginx -t -c "$file" >/dev/null 2>&1
     if [ $? -eq 0 ]; then
         echo "include $file;" >> $TMP_FILE
