@@ -1,7 +1,6 @@
-#!/bin/bash
-
 CONFIG_DIR="/etc/nginx/conf.d"
 TMP_FILE="/tmp/nginx_config_list"
+NGINX_MAIN_CONF="/etc/nginx/nginx.conf"
 
 > $TMP_FILE
 
@@ -14,10 +13,22 @@ for file in $CONFIG_DIR/*.conf; do
     fi
 done
 
-nginx -t -c "$TMP_FILE"
-if [ $? -eq 0 ]; then
-    mv $TMP_FILE $CONFIG_DIR/nginx_include.conf
-    echo "All configs passed. Including in Nginx configuration."
+if [ -s "$TMP_FILE" ]; then
+    echo "Checking the temporary file for content"
+    echo "" >> $TMP_FILE
+    echo "}" >> $TMP_FILE
+
+    echo "Updating the main Nginx configuration file"
+    sed -i -e '/http {/r '"$TMP_FILE"'' "$NGINX_MAIN_CONF"
+
+    nginx -t
+    if [ $? -eq 0 ]; then
+        echo "All configs passed. Nginx configuration updated successfully."
+    else
+        echo "Error: Some configs failed. Check error logs."
+    fi
 else
-    echo "Some configs failed. Check error logs."
+    echo "Error: No valid configs found. Check error logs."
 fi
+
+rm "$TMP_FILE"
