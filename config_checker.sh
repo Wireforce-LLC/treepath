@@ -7,8 +7,6 @@ CHILD_CONFIG_FILE="/etc/nginx/child_configs.conf"
 > $TMP_FILE
 valid_configs=false
 
-echo "http {" >> "$TMP_FILE"
-
 for file in $CONFIG_DIR/*.conf; do
     echo "Checking '$file'..."
     nginx -t -c "$file"
@@ -21,8 +19,6 @@ for file in $CONFIG_DIR/*.conf; do
         echo "Skipping $file due to errors"
     fi
 done
-
-echo "}" >> "$TMP_FILE"
 
 if $valid_configs ; then
     echo "Updating the child configs file"
