@@ -1,11 +1,7 @@
 #!/bin/bash
-CHILD_CONFIG_FILE="/etc/nginx/child_configs.conf"
 
 # Function to generate Nginx configuration from routes.trp
 generate_config() {
-    echo "Generating phantom '$CHILD_CONFIG_FILE' configuration..."
-    echo "" >> CHILD_CONFIG_FILE
-
     echo "Generating Nginx configuration..."
 
     # Remove existing configuration files

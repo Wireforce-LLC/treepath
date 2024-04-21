@@ -9,6 +9,7 @@ COPY routes.trp /etc/nginx/routes.trp
 
 # Copy the nginx configuration file with dynamic routing
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY child_configs.conf /etc/nginx/child_configs.conf
 
 COPY util.sh /etc/nginx/util.sh
 RUN chmod +x /etc/nginx/util.sh
