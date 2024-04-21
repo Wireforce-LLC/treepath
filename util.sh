@@ -28,6 +28,7 @@ create_host() {
 
     # Add the host entry to the router.trp file
     echo "$domain => $target" >> "$script_dir/routes.trp"
+    echo "OK"
 }
 
 # Function to delete a host entry from the router.trp file
@@ -51,6 +52,8 @@ delete_host() {
 
     # Move the contents of the temporary file back to routes.trp
     mv "$tmp_file" "$script_dir/routes.trp"
+
+    echo "OK"
 }
 
 # Function to get all hosts in JSON format
