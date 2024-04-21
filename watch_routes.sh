@@ -42,6 +42,8 @@ generate_config() {
 
     echo "Print vhosts..."
     nginx -T | grep "server_name "
+
+    service nginx restart
 }
 
 echo "Dynamic routing script started..."
