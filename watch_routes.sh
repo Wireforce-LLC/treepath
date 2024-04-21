@@ -15,26 +15,31 @@ generate_config() {
         domain=$(echo "$domain" | awk '{$1=$1;print}')
         target=$(echo "$target" | awk '{$1=$1;print}')
 
-        # Generate Nginx configuration block for each domain
-        echo "Generating configuration block for domain: $domain; target: $target"
-        echo "
-            server {
-                listen 80;
-                server_name $domain;
+        # Check if target host is reachable
+        if curl --output /dev/null --silent --head --fail "$target"; then
+            # Generate Nginx configuration block for each domain
+            echo "Generating configuration block for domain: $domain; target: $target"
+            echo "
+                server {
+                    listen 80;
+                    server_name $domain;
 
-                location / {
-                    if (\$http_host != '$domain') {
+                    location / {
+                        if (\$http_host != '$domain') {
                             return 403;
+                        }
+                        proxy_pass $target;
+                        proxy_set_header Host \$host;
+                        proxy_set_header X-Real-IP \$remote_addr;
+                        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto \$scheme;
+                        proxy_pass_request_headers on;
                     }
-                    proxy_pass $target;
-                    proxy_set_header Host \$host;
-                    proxy_set_header X-Real-IP \$remote_addr;
-                    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-                    proxy_set_header X-Forwarded-Proto \$scheme;
-                    proxy_pass_request_headers on;
                 }
-            }
-        " > /etc/nginx/conf.d/$domain.conf
+            " > /etc/nginx/conf.d/$domain.conf
+        else
+            echo "Skipping domain $domain due to unreachable target: $target"
+        fi
 
     done < <(awk -F' => ' '!/^ *#/ && NF>0 {print $1,$2}' /etc/nginx/routes.trp)
 
