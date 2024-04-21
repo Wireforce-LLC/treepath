@@ -17,7 +17,7 @@ generate_config() {
 
         # Generate Nginx configuration block for each domain
         echo "Generating configuration block for domain: $domain; target: $target"
-        echo "http {
+        echo "
             server {
                 listen 80;
                 server_name $domain;
@@ -34,7 +34,7 @@ generate_config() {
                     proxy_pass_request_headers on;
                 }
             }
-        }" > /etc/nginx/conf.d/$domain.conf
+        " > /etc/nginx/conf.d/$domain.conf
 
     done < <(awk -F' => ' '!/^ *#/ && NF>0 {print $1,$2}' /etc/nginx/routes.trp)
 
