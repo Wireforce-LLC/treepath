@@ -17,20 +17,22 @@ generate_config() {
 
         # Generate Nginx configuration block for each domain
         echo "Generating configuration block for domain: $domain; target: $target"
-        echo "server {
-            listen 80;
-            server_name $domain;
+        echo "http {
+            server {
+                listen 80;
+                server_name $domain;
 
-            location / {
-                if (\$http_host != '$domain') {
-                        return 403;
+                location / {
+                    if (\$http_host != '$domain') {
+                            return 403;
+                    }
+                    proxy_pass $target;
+                    proxy_set_header Host \$host;
+                    proxy_set_header X-Real-IP \$remote_addr;
+                    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto \$scheme;
+                    proxy_pass_request_headers on;
                 }
-                proxy_pass $target;
-                proxy_set_header Host \$host;
-                proxy_set_header X-Real-IP \$remote_addr;
-                proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto \$scheme;
-                proxy_pass_request_headers on;
             }
         }" > /etc/nginx/conf.d/$domain.conf
 

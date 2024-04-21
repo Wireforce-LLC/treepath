@@ -21,12 +21,8 @@ for file in $CONFIG_DIR/*.conf; do
 done
 
 if $valid_configs ; then
-    echo "Checking the temporary file for content"
-    echo "" >> $TMP_FILE
-    echo "}" >> $TMP_FILE
-
     echo "Updating the main Nginx configuration file"
-    sed -i -e '/http {/r '"$TMP_FILE"'' "$NGINX_MAIN_CONF"
+    cat "$TMP_FILE" >> "$NGINX_MAIN_CONF"
 
     nginx -t
     if [ $? -eq 0 ]; then
