@@ -1,8 +1,10 @@
 #!/bin/bash
 
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Function to create routes.trp file if it doesn't exist
 create_routes_file() {
-    local routes_file="routes.trp"
+    local routes_file="$script_dir/routes.trp"
 
     # Check if routes.trp file exists
     if [ ! -f "$routes_file" ]; then
@@ -25,7 +27,7 @@ create_host() {
     fi
 
     # Add the host entry to the router.trp file
-    echo "$domain => $target" >> "routes.trp"
+    echo "$domain => $target" >> "$script_dir/routes.trp"
 }
 
 # Function to delete a host entry from the router.trp file
@@ -45,10 +47,10 @@ delete_host() {
     local tmp_file=$(mktemp)
 
     # Remove the host entry from the router.trp file
-    sed "/^$domain => $target$/d" "routes.trp" > "$tmp_file"
+    sed "/^$domain => $target$/d" "$script_dir/routes.trp" > "$tmp_file"
 
     # Move the contents of the temporary file back to routes.trp
-    mv "$tmp_file" "routes.trp"
+    mv "$tmp_file" "$script_dir/routes.trp"
 }
 
 # Function to get all hosts in JSON format
@@ -69,7 +71,7 @@ get_all_hosts() {
             # shellcheck disable=SC2059
             printf ",{\"domain\": \"$domain\", \"target\": \"$target\"}"
         fi
-    done < "routes.trp"
+    done < "$script_dir/routes.trp"
 
     echo "]"
 }
