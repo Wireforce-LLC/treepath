@@ -22,6 +22,9 @@ generate_config() {
             server_name $domain;
 
             location / {
+                if (\$http_host != '$domain') {
+                        return 403;
+                }
                 proxy_pass $target;
                 proxy_set_header Host \$host;
                 proxy_set_header X-Real-IP \$remote_addr;
