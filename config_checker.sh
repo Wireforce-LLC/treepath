@@ -15,7 +15,7 @@ for file in $CONFIG_DIR/*.conf; do
     echo "Result code '$?'..."
 
     if [ $? -eq 0 ]; then
-        cat "$file" >> "$TMP_FILE"
+        echo "include '$file';" >> "$TMP_FILE"
         valid_configs=true
     else
         echo "Skipping $file due to errors"
@@ -37,5 +37,3 @@ if $valid_configs ; then
 else
     echo "Error: No valid configs found. Check error logs."
 fi
-
-rm "$TMP_FILE"
