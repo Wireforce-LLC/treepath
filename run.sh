@@ -12,4 +12,14 @@ fi
 
 # Run the Docker container with volume mounting
 echo "Starting container $CONTAINER_NAME..."
-docker run -d -p 80:80 -v "$(pwd)/routes.trp:/etc/nginx/routes.trp" --name $CONTAINER_NAME treepath
+docker run \
+    -d \
+    -p 80:80 \
+    -v "$(pwd)/routes.trp:/etc/nginx/routes.trp" \
+    --restart always \
+    --network host \
+    --hostname $CONTAINER_NAME \
+    --limit-cpu 50% \
+    --limit-memory 512m \
+    --memory-swap 512m \
+    --name $CONTAINER_NAME treepath

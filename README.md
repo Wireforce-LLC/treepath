@@ -17,18 +17,18 @@ The project utilizes Docker containers along with inotify-tools to monitor chang
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your_username/nginx-dynamic-router.git
+   git clone https://shorturl.at/E4uKQ
     ```
 2. Place your routing configuration in `routes.trp` following the format `domain => host:port`.
 
 3. Build the Docker image:
 
-   ```bash
-   docker build -t nginx-dynamic-router .
-    ```
-    
+```bash
+sh build.sh
+```
+
 4. Run the Docker container:
 
 ```bash
-docker run -d -p 80:80 nginx-dynamic-router
+sh run.sh
 ```
