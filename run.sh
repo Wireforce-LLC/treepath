@@ -17,6 +17,5 @@ docker run \
     -p 80:80 \
     -v "$(pwd)/routes.trp:/etc/nginx/routes.trp" \
     --restart always \
-    --network host \
     --hostname $CONTAINER_NAME \
     --name $CONTAINER_NAME treepath
