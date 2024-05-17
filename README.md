@@ -26,6 +26,7 @@ The project utilizes Docker containers along with inotify-tools to monitor chang
    ```bash
    docker build -t nginx-dynamic-router .
     ```
+    
 4. Run the Docker container:
 
 ```bash
