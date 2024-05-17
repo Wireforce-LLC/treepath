@@ -5,13 +5,13 @@ CONTAINER_NAME="treepath"
 
 # Check if the container is already running
 if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
-    echo "Container $CONTAINER_NAME is already running. Stopping and removing it..."
+    echo "Container '$CONTAINER_NAME' is already running. Stopping and removing it..."
     docker stop $CONTAINER_NAME
     docker rm $CONTAINER_NAME
 fi
 
 # Run the Docker container with volume mounting
-echo "Starting container $CONTAINER_NAME..."
+echo "Starting container '$CONTAINER_NAME'..."
 docker run \
     -d \
     -p 80:80 \
@@ -19,7 +19,4 @@ docker run \
     --restart always \
     --network host \
     --hostname $CONTAINER_NAME \
-    --limit-cpu 50% \
-    --limit-memory 512m \
-    --memory-swap 512m \
     --name $CONTAINER_NAME treepath
