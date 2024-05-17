@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Build the Docker image
-docker build -t treepath .
+docker build --no-cache --file Dockerfile --tag treepath .
