@@ -1,7 +1,7 @@
 import os.path
 
 formated = []
-file_name = "routes.trp"
+file_name = "/etc/nginx/routes.trp"
 
 if not file_name.endswith(".trp"):
     file_name = file_name + ".trp"
