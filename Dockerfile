@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Install inotify-tools for file monitoring
-RUN apt-get update && apt-get install -y inotify-tools python3
+RUN apt-get update && apt-get install -y inotify-tools python3 iputils-ping
 
 # Copy the initial routes.trp file
 COPY routes.trp /etc/nginx/routes.trp
