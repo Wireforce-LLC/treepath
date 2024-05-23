@@ -32,3 +32,11 @@ docker run \
     --name $CONTAINER_NAME treepath
 
 echo "Container '$CONTAINER_NAME' started."
+
+echo "Happy TreePathing!"
+echo """Congratulations, TreePath is up and running and ready to receive your traffic!
+What's next? 
+
+- Connect all the containers you want TreePath to access to the 'datahub' network. It was created automatically
+- All! Each change to the routes.trp file will automatically create Nginx configurations for your containers
+"""
