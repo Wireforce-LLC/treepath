@@ -16,9 +16,13 @@ if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
     docker rm $CONTAINER_NAME
 fi
 
-# Create the Docker network
-echo "Creating network 'datahub'..."
-docker network create --driver bridge datahub || true
+# Check if the 'datahub' network exists
+if [ ! "$(docker network ls | grep datahub)" ]; then
+  echo "Creating 'datahub' network ..."
+  docker network create datahub
+else
+  echo "'datahub' network exists."
+fi
 
 # Run the Docker container with volume mounting
 echo "Starting container '$CONTAINER_NAME'..."
