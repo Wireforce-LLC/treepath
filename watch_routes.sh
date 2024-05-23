@@ -57,7 +57,7 @@ generate_config() {
 }
 
 echo "Dynamic routing script started..."
-python3 ./url_validate_and_trim.py
+python3 url_validate_and_trim.py
 
 # Generate initial configuration
 generate_config

@@ -21,6 +21,10 @@ RUN chmod +x /etc/nginx/config_checker.sh
 COPY watch_routes.sh /usr/local/bin/watch_routes.sh
 RUN chmod +x /usr/local/bin/watch_routes.sh
 
+# Copy the script for validating and trimming URLs
+COPY url_validate_and_trim.py /usr/local/bin/url_validate_and_trim.py
+RUN chmod +x /usr/local/bin/url_validate_and_trim.py
+
 # Expose ports
 EXPOSE 80
 EXPOSE 443
