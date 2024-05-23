@@ -2,6 +2,9 @@
 
 echo "Starting the Treepath application configurator..."
 
+echo "Creating errors.log if it doesn't exist..."
+touch errors.logs
+
 # Name of the Docker container
 CONTAINER_NAME="treepath"
 
@@ -30,6 +33,7 @@ docker run \
     -d \
     -p 80:80 \
     -v "$(pwd)/routes.trp:/etc/nginx/routes.trp" \
+    -v "$(pwd)/errors.logs:/etc/nginx/host-errors.logs" \
     --network datahub \
     --restart always \
     --hostname $CONTAINER_NAME \

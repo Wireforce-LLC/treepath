@@ -25,6 +25,10 @@ RUN chmod +x /usr/local/bin/watch_routes.sh
 COPY url_validate_and_trim.py /usr/local/bin/url_validate_and_trim.py
 RUN chmod +x /usr/local/bin/url_validate_and_trim.py
 
+# Copy the script for preping URLs
+COPY preping.py /usr/local/bin/preping.py
+RUN chmod +x /usr/local/bin/preping.py
+
 # Expose ports
 EXPOSE 80
 EXPOSE 443
