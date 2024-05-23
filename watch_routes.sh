@@ -65,5 +65,6 @@ generate_config
 echo "Monitoring routes.trp for changes..."
 while inotifywait -e modify /etc/nginx/routes.trp; do
     echo "routes.trp has been modified. Regenerating Nginx configuration..."
+    python3 ./url_validate_and_trim.py
     generate_config
 done
