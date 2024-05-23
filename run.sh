@@ -16,12 +16,17 @@ if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
     docker rm $CONTAINER_NAME
 fi
 
+# Create the Docker network
+echo "Creating network 'datahub'..."
+docker network create --driver bridge datahub || true
+
 # Run the Docker container with volume mounting
 echo "Starting container '$CONTAINER_NAME'..."
 docker run \
     -d \
     -p 80:80 \
     -v "$(pwd)/routes.trp:/etc/nginx/routes.trp" \
+    --network datahub \
     --restart always \
     --hostname $CONTAINER_NAME \
     --name $CONTAINER_NAME treepath
