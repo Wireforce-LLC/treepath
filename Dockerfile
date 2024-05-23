@@ -29,5 +29,7 @@ RUN chmod +x /usr/local/bin/url_validate_and_trim.py
 EXPOSE 80
 EXPOSE 443
 
+WORKDIR /usr/local/bin
+
 # Start Nginx and monitoring script
 CMD ["sh", "-c", "nginx && watch_routes.sh"]

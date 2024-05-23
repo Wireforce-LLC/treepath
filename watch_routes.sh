@@ -57,7 +57,7 @@ generate_config() {
 }
 
 echo "Dynamic routing script started..."
-python3 url_validate_and_trim.py
+python3 /usr/local/bin/url_validate_and_trim.py
 
 # Generate initial configuration
 generate_config
@@ -66,6 +66,6 @@ generate_config
 echo "Monitoring routes.trp for changes..."
 while inotifywait -e modify /etc/nginx/routes.trp; do
     echo "routes.trp has been modified. Regenerating Nginx configuration..."
-    python3 ./url_validate_and_trim.py
+    python3 /usr/local/bin/url_validate_and_trim.py
     generate_config
 done
