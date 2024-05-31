@@ -1,6 +1,13 @@
-# Nginx Dynamic Router
+
+# w/treepath
+
+<img src="https://i.ibb.co/7g17JrQ/Frame-6-1.png" align="right" width="80" height="80">
 
 This project provides a Dockerized solution for dynamically routing incoming traffic based on a configuration file. It is particularly useful for scenarios where the routing configuration needs to be updated dynamically without restarting the Nginx server.
+
+![Bash](https://img.shields.io/badge/bash-black?style=for-the-badge&logo=zsh&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-black?style=for-the-badge&logo=docker&logoColor=white)
+![Nginx](https://img.shields.io/badge/nginx-black?style=for-the-badge&logo=nginx&logoColor=white)
 
 ## Features
 
@@ -17,18 +24,7 @@ The project utilizes Docker containers along with inotify-tools to monitor chang
 1. Clone the repository:
 
    ```bash
-   git clone https://shorturl.at/E4uKQ
-    ```
-2. Place your routing configuration in `routes.trp` following the format `domain => host:port`.
-
-3. Build the Docker image:
-
-```bash
-sh build.sh
-```
-
-4. Run the Docker container:
-
-```bash
-sh run.sh
-```
+   git clone https://shorturl.at/E4uKQ    
+   sh build.sh
+   sh run.sh
+   ```
